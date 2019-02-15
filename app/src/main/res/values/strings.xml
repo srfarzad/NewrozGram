@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">NewrozGram</string>
+    <string name="login">Login</string>
+    <string name="no_account_yet_create_one">No account yet? Create one</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="newroz_gram">Newroz Gram</string>
+    <string name="home">home</string>
+    <string name="add_post">Add Post</string>
+    <string name="profile">Profile</string>
+    <string name="search">Search</string>
+    <string name="error_login">error in login</string>
+</resources>
