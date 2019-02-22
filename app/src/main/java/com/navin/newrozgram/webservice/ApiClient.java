@@ -7,6 +7,7 @@ public class ApiClient {
 
     public static Retrofit retrofit = null;
     public static final String BASE_URL = "http://androidsupport.ir/picpic/";
+    public static final String BASE_URL_IMAGES = BASE_URL+"images/";
 
     public static Retrofit getClient() {
 

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "310996103374",
+    "firebase_url": "https://newrozgram.firebaseio.com",
+    "project_id": "newrozgram",
+    "storage_bucket": "newrozgram.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310996103374:android:f89de469f46f8013",
+        "android_client_info": {
+          "package_name": "com.navin.newrozgram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310996103374-5lu0s1fcva8dg5inev339p7qqh32n5r4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.navin.newrozgram",
+            "certificate_hash": "8e0f8fa2bf31cb50208b48d008d47fb8be8f7e64"
+          }
+        },
+        {
+          "client_id": "310996103374-e898nntkvqnnsohgvo0shqmi5m7sj285.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTWqw9tzo_Z1cpiWpNYXWcHxGKGhQZMuo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310996103374-e898nntkvqnnsohgvo0shqmi5m7sj285.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

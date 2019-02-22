@@ -8,10 +8,11 @@
 
 
     <androidx.cardview.widget.CardView
-        app:cardElevation="@dimen/margin_5"
-        app:cardCornerRadius="@dimen/margin_5"
+        android:id="@+id/card_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/margin_5"
+        app:cardElevation="@dimen/margin_5">
 
 
         <androidx.appcompat.widget.Toolbar
@@ -26,30 +27,28 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_camera"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/ic_camera_alt_black_24dp"
-                    android:layout_height="wrap_content" />
+                    app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
 
 
                 <com.navin.androidframework.customView.DroidTextView
                     android:layout_width="wrap_content"
-                    android:layout_toRightOf="@id/img_camera"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/newroz_gram"
                     android:layout_marginLeft="@dimen/margin_8"
-                    android:layout_height="wrap_content" />
+                    android:layout_toRightOf="@id/img_camera"
+                    android:text="@string/newroz_gram" />
 
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_chat"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/ic_chat_black_24dp"
-                    android:layout_height="wrap_content" />
-
-
+                    app:srcCompat="@drawable/ic_chat_black_24dp" />
 
 
             </RelativeLayout>
@@ -58,19 +57,30 @@
         </androidx.appcompat.widget.Toolbar>
 
 
-
-
     </androidx.cardview.widget.CardView>
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_posts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_menu"
+        android:layout_below="@+id/card_title"/>
 
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
-        app:menu="@menu/home_menu"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content"/>
+        app:menu="@menu/home_menu" />
 
 
 </RelativeLayout>
