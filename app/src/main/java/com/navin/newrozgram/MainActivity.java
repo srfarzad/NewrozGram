@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity {
         student.name = "Test";
 
         Realm realm= Realm.getDefaultInstance();
-        realm.beginTransaction();
+//        realm.beginTransaction();
        // realm.copyToRealm(student);
      //   realm.commitTransaction();
 

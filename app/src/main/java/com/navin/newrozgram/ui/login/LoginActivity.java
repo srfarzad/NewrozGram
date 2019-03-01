@@ -11,106 +11,134 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.navin.androidframework.ui.BaseActivity;
+import com.navin.androidframework.utility.ApplicationManager;
 import com.navin.newrozgram.MainActivity;
 import com.navin.newrozgram.R;
+import com.navin.newrozgram.config.AppSetting;
+import com.navin.newrozgram.config.Permission;
 import com.navin.newrozgram.models.IMessageListener;
 import com.navin.newrozgram.models.User;
+import com.navin.newrozgram.service.MediaPlayerService;
+import com.navin.newrozgram.ui.register.RegisterActivity;
 import com.navin.newrozgram.webservice.DataParser;
 import com.navin.newrozgram.webservice.ServiceCaller;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements LoginView {
 
 
-    @BindView(R.id.input_email) AppCompatEditText input_email;
-    @BindView(R.id.input_password) AppCompatEditText input_password;
-    @BindView(R.id.btn_login) AppCompatButton btn_login;
-    @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.input_email)
+    AppCompatEditText input_email;
+    @BindView(R.id.input_password)
+    AppCompatEditText input_password;
+    @BindView(R.id.btn_login)
+    AppCompatButton btn_login;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     ServiceCaller serviceCaller;
+    AppSetting appSetting;
+    LoginPresentor loginPresentor;
+
+
+    //@BindView(R.id.link_signup) AppCompatTextView link_signup;
+
+    @BindView(R.id.rel_main) RelativeLayout rel_main;
 
     @Override
     public int setContentView() {
         return R.layout.activity_login;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         serviceCaller
-                 = new ServiceCaller();
+                = new ServiceCaller();
+        appSetting = new AppSetting(getApplicationContext());
 
 
+        if (appSetting.getId() > 0) {
+            finish();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+           // startActivity(intent);
+        }
+
+
+        loginPresentor = new LoginPresentor(getApplicationContext(), this, new LoginInteractor());
+
+
+        Permission.checkPermission(LoginActivity.this);
 
 
     }
 
 
     @OnClick(R.id.btn_login)
-    public void btn_login_click(View view){
+    public void btn_login_click(View view) {
 
+        loginPresentor.validateLogin(input_email.getText().toString(), input_password.getText().toString());
+    }
 
-        login(view);
-
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-
-     //   startActivity(intent);
-
-
-
+    @OnClick(R.id.link_signup)
+    public void link_signup_click() {
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
     }
 
 
-    private void login(View v){
+    @Override
+    public void errorUsername() {
+        input_email.setError(getString(R.string.username_required));
+    }
 
+    @Override
+    public void errorPassword() {
+        input_password.setError(getString(R.string.password_required));
+    }
+
+    @Override
+    public void showProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
+    }
 
-        User user = new User();
-        user.setUsername(input_email.getText().toString());
-        user.setPassword(input_password.getText().toString());
-        serviceCaller.login(user, new IMessageListener() {
-            @Override
-            public void onSuccess(Object response) {
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
+    }
 
-                progressBar.setVisibility(View.GONE);
+    @Override
+    public void connectionChecker() {
 
-                String res = response.toString().substring(1,response.toString().length());
+        Snackbar.make(rel_main,getString(R.string.check_connection),Snackbar.LENGTH_LONG).show();
 
-                try {
-                    int code  = Integer.parseInt( DataParser.parseJson(response.toString()));
+    }
 
-                    if(code>0) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+    @Override
+    public void navigateToHome() {
 
-                        startActivity(intent);
-
-                    }
-                    else  {
-                        Snackbar.make(v,getString(R.string.error_login),Snackbar.LENGTH_LONG).show();
-                    }
+        finish();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
 
 
-                    Log.e("Code",code+"");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        if(ApplicationManager.isMyServiceRunning(getApplicationContext(),MediaPlayerService.class)) {
+            Intent intent1= new Intent(getApplicationContext(), MediaPlayerService.class);
+            startService(intent1);
+        }
 
 
-            }
-
-            @Override
-            public void onFail(String errorResponse) {
-                progressBar.setVisibility(View.GONE);
-
-            }
-        });
 
 
     }
 
-
-
-
-
+    @Override
+    public void onError() {
+        progressBar.setVisibility(View.GONE);
+        Snackbar.make(rel_main,getString(R.string.check_connection),Snackbar.LENGTH_LONG).show();
+    }
 }

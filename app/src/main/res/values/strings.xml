@@ -10,4 +10,7 @@
     <string name="profile">Profile</string>
     <string name="search">Search</string>
     <string name="error_login">error in login</string>
+    <string name="username_required">Please enter your username</string>
+    <string name="password_required">Please enter your password</string>
+    <string name="check_connection">Please check your connection</string>
 </resources>
